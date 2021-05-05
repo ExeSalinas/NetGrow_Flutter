@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "722283765036",
+    "firebase_url": "https://net-grow-ece02-default-rtdb.firebaseio.com",
+    "project_id": "net-grow-ece02",
+    "storage_bucket": "net-grow-ece02.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:722283765036:android:a872a96d10a3b5c398a089",
+        "android_client_info": {
+          "package_name": "com.ExeSalinas.netgrow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "722283765036-6bgdka5k9hab3e8kdo1i1ii2g50rmg8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ExeSalinas.netgrow",
+            "certificate_hash": "c4d926bcd608f4301d5daecc42e6bdcf62e0cabb"
+          }
+        },
+        {
+          "client_id": "722283765036-po9pdo0tk3r8j6c5i7d3rgqt6e87f12u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBou6gjWpu3iHxmHQe7zzflqtEKVYpkzrw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "722283765036-po9pdo0tk3r8j6c5i7d3rgqt6e87f12u.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
