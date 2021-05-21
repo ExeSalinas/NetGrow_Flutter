@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:netgrow/Firebase/auth.dart';
+import 'package:netgrow/Routes/Router.dart';
+import 'package:netgrow/Routes/misArduino.dart';
 
 class CreateUserForm extends StatefulWidget {
   @override
@@ -128,11 +130,12 @@ class _CreateUserFormState extends State<CreateUserForm> {
             );
             return;
           }
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('DONE'),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     content: Text('DONE'),
+          //   ),
+          // );
+           NetGrowRouter.instance.push(MisArduino.route());
         },
       ),
     );

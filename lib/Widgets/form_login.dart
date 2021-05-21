@@ -1,6 +1,8 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:netgrow/Firebase/auth.dart';
+import 'package:netgrow/Routes/Router.dart';
+import 'package:netgrow/Routes/misArduino.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -66,13 +68,15 @@ class _LoginFormState extends State<LoginForm> {
 
     final _loginButton = Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: 8, vertical: 8,),
+        horizontal: 8,
+        vertical: 8,
+      ),
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
         ),
         child: Text(
-          "Crear usuario",
+          "Ingresar",
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 20.0,
@@ -81,6 +85,7 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
         onPressed: () async {
+          // TODO ACA VA EL LOGIN NO SIGN
           if (!_formKey.currentState!.validate()) return;
           try {
             await signUp(_emailController.text, _passwordController.text);
@@ -93,11 +98,12 @@ class _LoginFormState extends State<LoginForm> {
             );
             return;
           }
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('DONE'),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     content: Text('DONE'),
+          //   ),
+          // );
+         NetGrowRouter.instance.push(MisArduino.route());
         },
       ),
     );

@@ -3,16 +3,18 @@ import 'package:netgrow/Widgets/Sensors_widgets/light_widget.dart';
 import 'package:netgrow/Widgets/Sensors_widgets/temp_widget.dart';
 import 'package:netgrow/Widgets/Sensors_widgets/humidity_widget.dart';
 import 'package:netgrow/Widgets/Sensors_widgets/soil_widget.dart';
-// TODO AGREGAR PAGEVIEW
+
 class DashboardRoute extends StatefulWidget {
   DashboardRoute({Key? key, required this.title}) : super(key: key);
 
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
+  static final id = "Dashboard";
+  static Route<DashboardRoute> route({required String title}) {
+    return MaterialPageRoute<DashboardRoute>(
+      settings: RouteSettings(name: id),
+      builder: (BuildContext context) => DashboardRoute(title: title),
+    );
+  }
 
   @override
   _DashboardRouteState createState() => _DashboardRouteState();
@@ -55,7 +57,8 @@ class _DashboardRouteState extends State<DashboardRoute> {
       list.forEach((element) {
         _sensores.add(
           Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4.0 , horizontal: 18.0),
+            padding:
+                const EdgeInsets.symmetric(vertical: 4.0, horizontal: 18.0),
             child: Wrap(
               spacing: 8.0,
               runSpacing: 4.0,
@@ -109,15 +112,13 @@ class _DashboardRouteState extends State<DashboardRoute> {
     // );
     //
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          widget.title,
-          style: Theme.of(context).textTheme.headline5,
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            widget.title,
+            style: Theme.of(context).textTheme.headline5,
+          ),
         ),
-      ),
-      body: ListView(children: _sensores)
-
-    );
+        body: ListView(children: _sensores));
   }
 }

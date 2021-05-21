@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:netgrow/Entities/arduino.dart';
+import 'package:netgrow/Routes/Router.dart';
 import 'package:netgrow/Routes/dashboard_route.dart';
 
 //Constantes
@@ -13,13 +14,19 @@ class ArduinoTile extends StatelessWidget {
       : super(key: key);
 
   //Navigate to the [DashboardRoute]
-  void _navigateToDashboard(BuildContext context) {
-    Navigator.of(context).push(
-      MaterialPageRoute(builder: (BuildContext context) {
-        return DashboardRoute(title: arduino.nombre);
-      }),
-    );
+  
+  void _navigateToDashboard(){
+    NetGrowRouter.instance.push(DashboardRoute.route(title: arduino.nombre));
   }
+  
+  //
+  // void _navigateToDashboard(BuildContext context) {
+  //   Navigator.of(context).push(
+  //     MaterialPageRoute(builder: (BuildContext context) {
+  //       return DashboardRoute(title: arduino.nombre);
+  //     }),
+  //   );
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +38,7 @@ class ArduinoTile extends StatelessWidget {
           highlightColor: _color,
           splashColor: _color[100],
           onTap: () {
-            _navigateToDashboard(context);
+            _navigateToDashboard();
           },
           child: Center(
             child: Column(
