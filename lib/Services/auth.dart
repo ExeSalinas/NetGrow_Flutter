@@ -42,4 +42,8 @@ class AuthService {
       showAlertDialog(e.toString());
     }
   }
+
+  Future<void> singOut() async {
+    await _firebaseAuth.signOut();
+  }
 }

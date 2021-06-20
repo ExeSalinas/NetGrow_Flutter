@@ -31,6 +31,11 @@ class AnalyticsService {
     await _analytics.setUserId(userID);
     await _analytics.setUserProperty(name: 'UserRol', value: userRol);
   }
+
+  Future<void> logLogout() async{
+     _analytics.logEvent(name: "Logout");
+  }
+
   /// Logea el evento de Registro de un Arduino
   Future<void> logArduinoRegistered() async {
     _analytics.logEvent(name: "ArduinoRegistrado");
