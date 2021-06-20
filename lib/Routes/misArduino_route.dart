@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:netgrow/Routes/Router.dart';
+import 'package:netgrow/Routes/profile_route.dart';
 import 'package:netgrow/Widgets/arduino_tile.dart';
 import 'package:netgrow/Widgets/form_addArduino.dart';
 
@@ -27,8 +29,6 @@ class MisArduino extends StatefulWidget {
 }
 
 class _MisArduinoState extends State {
-
-
   void _addButonPressed(BuildContext context) {
     showDialog(
       context: context,
@@ -42,6 +42,13 @@ class _MisArduinoState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+              icon: Icon(Icons.person_rounded),
+              onPressed: () {
+                NetGrowRouter.instance.push(Profile.route());
+              })
+        ],
         centerTitle: true,
         title:
             Text('Mis Arduino', style: Theme.of(context).textTheme.headline5),

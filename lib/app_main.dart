@@ -6,7 +6,8 @@ import 'package:netgrow/Services/auth.dart';
 import 'package:netgrow/theme.dart';
 
 import 'Routes/login_route.dart';
-import 'Routes/misArduino.dart';
+import 'package:netgrow/Routes/misArduino_route.dart';
+
 
 class MyMaterialApp extends StatelessWidget {
   const MyMaterialApp({Key? key}) : super(key: key);
@@ -22,8 +23,7 @@ class MyMaterialApp extends StatelessWidget {
         navigatorObservers: [observer],
         theme: getTheme(),
         navigatorKey: NetGrowRouter.instance.navigatorKey,
-        // Compruebo sie sta loggeado el usuario previamente
-
+        // Compruebo si esta loggeado el usuario previamente
         home: (_authService.currentUser == null) ? Login() : MisArduino());
 
     return app;

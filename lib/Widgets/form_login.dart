@@ -2,7 +2,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:netgrow/Firebase/auth.dart';
 import 'package:netgrow/Routes/Router.dart';
-import 'package:netgrow/Routes/misArduino.dart';
+import 'package:netgrow/Routes/misArduino_route.dart';
+import 'package:netgrow/Services/analytics.dart';
+import 'package:netgrow/Services/auth.dart';
 
 class LoginForm extends StatefulWidget {
   @override
@@ -15,17 +17,19 @@ class _LoginFormState extends State<LoginForm> {
   TextEditingController _passwordController = TextEditingController();
   bool _passwdVisible = true;
   final _paddingFormFields = EdgeInsets.all(8.0);
+  final AnalyticsService _analyticsService = AnalyticsService();
 
   @override
   void initState() {
     _passwdVisible = true;
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     ThemeData _context = Theme.of(context);
-    final _mq = MediaQuery.of(context);
+
 
     final _emailFormfield = TextFormField(
       controller: _emailController,
@@ -98,12 +102,12 @@ class _LoginFormState extends State<LoginForm> {
             );
             return;
           }
-          // ScaffoldMessenger.of(context).showSnackBar(
-          //   SnackBar(
-          //     content: Text('DONE'),
-          //   ),
-          // );
-         NetGrowRouter.instance.push(MisArduino.route());
+          // logeo en analytics el evento de login , luego navego a esa ruta
+
+          _analyticsService.logLogin("email");
+
+          _analyticsService.setUserProperties(userID: _emailController.text, userRol: 'Usuario');
+          NetGrowRouter.instance.push(MisArduino.route());
         },
       ),
     );

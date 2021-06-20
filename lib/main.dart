@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
                     child: Icon(
                       Icons.error_outline,
                       size: 40.0,
-                      semanticLabel: "Error al conectar con internet",
+                      semanticLabel: "Error al conectar co el servidor",
                       color: Colors.amberAccent,
                     ),
                   ),
