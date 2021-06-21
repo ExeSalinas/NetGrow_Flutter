@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:netgrow/Routes/Router.dart';
 import 'package:netgrow/Routes/login_route.dart';
@@ -28,14 +29,6 @@ class _ProfileState extends State<Profile> {
     final _auth = AuthService.instance;
     final _analytics = AnalyticsService.instance;
 
-    final logoutBtn =
-        OutlinedButton(onPressed: () async{
-          await _auth.singOut();
-          await _analytics.logLogout();
-          NetGrowRouter.instance.pushAndRemoveUntil(Login.route());
-
-        }, child: Text("Cerrar Sesion"));
-
     return Scaffold(
       appBar: AppBar(
         title: Text(" Mi Perfil"),
@@ -56,23 +49,41 @@ class _ProfileState extends State<Profile> {
             }
             // Pido el usario al snapshot
             final User? user = snapshot.data;
+
+            final logoutBtn = Padding(
+              padding: EdgeInsets.all(20.0),
+              child: OutlinedButton(
+                  onPressed: () async {
+                    await _auth.singOut();
+                    await _analytics.logLogout();
+                    NetGrowRouter.instance.pushAndRemoveUntil(Login.route());
+                  },
+                  child: Text("Cerrar Sesion")),
+            );
+
             return Column(
               children: <Widget>[
+                if (user != null) Text("Perfil de ${user.displayName}"),
                 Center(
-                  child: Placeholder(
-                    // TODO AGREGAR UN AIMAGEN BONITA
-                    fallbackHeight: MediaQuery.of(context).size.height / 3,
-                    fallbackWidth: MediaQuery.of(context).size.width / 2,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Placeholder(
+                      // TODO AGREGAR UN AIMAGEN BONITA
+                      fallbackHeight: MediaQuery.of(context).size.height / 3,
+                      fallbackWidth: MediaQuery.of(context).size.width / 4,
+                    ),
                   ),
                 ),
-                if (user != null) Text("Perfil de ${user.displayName}"),
                 if (user != null && !user.emailVerified)
-                  Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        user.sendEmailVerification();
-                      },
-                      child: Text("Verifica tu email"),
+                  Padding(
+                    padding: const EdgeInsets.all(12.0),
+                    child: Center(
+                      child: TextButton(
+                        onPressed: () {
+                          user.sendEmailVerification();
+                        },
+                        child: Text("Verifica tu email"),
+                      ),
                     ),
                   ),
                 logoutBtn

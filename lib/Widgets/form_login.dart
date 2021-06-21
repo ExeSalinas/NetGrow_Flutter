@@ -1,4 +1,5 @@
 import 'package:email_validator/email_validator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:netgrow/Firebase/auth.dart';
 import 'package:netgrow/Routes/Router.dart';
@@ -18,6 +19,7 @@ class _LoginFormState extends State<LoginForm> {
   bool _passwdVisible = true;
   final _paddingFormFields = EdgeInsets.all(8.0);
   final AnalyticsService _analyticsService = AnalyticsService();
+  final AuthService _authService = AuthService.instance;
 
   @override
   void initState() {
@@ -29,7 +31,6 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     ThemeData _context = Theme.of(context);
-
 
     final _emailFormfield = TextFormField(
       controller: _emailController,
@@ -89,25 +90,17 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
         onPressed: () async {
-          // TODO ACA VA EL LOGIN NO SIGN
           if (!_formKey.currentState!.validate()) return;
-          try {
-            await signUp(_emailController.text, _passwordController.text);
-          } catch (e) {
-            print(e);
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(
-                content: Text('ERROR'),
-              ),
-            );
-            return;
+
+          final User? user = await _authService.signInEmail(
+              email: _emailController.text, password: _passwordController.text);
+          if (user != null) {
+            // logeo en analytics el evento de login , luego navego a esa ruta
+            _analyticsService.logLogin("Email");
+            _analyticsService.setUserProperties(
+                userID: user.uid, userRol: "User");
+            NetGrowRouter.instance.pushAndRemoveUntil(MisArduino.route());
           }
-          // logeo en analytics el evento de login , luego navego a esa ruta
-
-          _analyticsService.logLogin("email");
-
-          _analyticsService.setUserProperties(userID: _emailController.text, userRol: 'Usuario');
-          NetGrowRouter.instance.push(MisArduino.route());
         },
       ),
     );

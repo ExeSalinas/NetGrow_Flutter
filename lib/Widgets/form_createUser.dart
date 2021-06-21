@@ -1,7 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:netgrow/Firebase/auth.dart';
 import 'package:netgrow/Routes/Router.dart';
 import 'package:netgrow/Routes/misArduino_route.dart';
 import 'package:netgrow/Services/auth.dart';
@@ -139,9 +138,10 @@ class _CreateUserFormState extends State<CreateUserForm> {
           if(user != null ){
             _analyticsService.logLogin("Email");
             _analyticsService.setUserProperties(userID: user.uid, userRol: "User");
+            NetGrowRouter.instance.pushAndRemoveUntil(MisArduino.route());
           }
 
-          NetGrowRouter.instance.pushAndRemoveUntil(MisArduino.route());
+
         },
       ),
     );
