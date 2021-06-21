@@ -39,7 +39,7 @@ class _ProfileState extends State<Profile> {
           builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {
             // Si snapshot no tiene data , aun esta cargando.
             if (!snapshot.hasData) {
-              return CircularProgressIndicator();
+              return Center(child: Container(height: MediaQuery.of(context).size.height/4,width: MediaQuery.of(context).size.width/3,child: CircularProgressIndicator()));
             }
             // Si el snapshot, tiene un error informar
             if (snapshot.hasError) {
@@ -63,7 +63,7 @@ class _ProfileState extends State<Profile> {
 
             return Column(
               children: <Widget>[
-                if (user != null) Text("Perfil de ${user.displayName}"),
+                if (user != null) Text("Perfil de ${user.email}",style: Theme.of(context).textTheme.headline2, ),
                 Center(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
