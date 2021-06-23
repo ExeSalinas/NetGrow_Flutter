@@ -56,10 +56,13 @@ class _DashboardRouteState extends State<DashboardRoute> {
       var list = [_lightTile, _humTile, _tempTile, _soilTile];
       list.forEach((element) {
         _sensores.add(
-          Wrap(
-            runSpacing: 0.0,
-            alignment: WrapAlignment.center,
-            children: element,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12.0),
+            child: Wrap(
+              runSpacing: 0.0,
+              alignment: WrapAlignment.center,
+              children: element,
+            ),
           ),
         );
       });

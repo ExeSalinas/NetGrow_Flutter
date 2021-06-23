@@ -17,31 +17,41 @@ class DashboardCard extends StatelessWidget {
   //Cuantoas cards van en la fila en modo portait utiliza el widget
   final int widthScreenFactor;
   final int widthLandscapeScreenFactor;
-  final double _cardSidesPadding = 12;
+  // final double _cardSidesPadding = 0;
   @override
   Widget build(BuildContext context) {
-    double deviceWidth = MediaQuery.of(context).size.width;
-    double deviceHeight = MediaQuery.of(context).size.height;
+    return LayoutBuilder(builder: (context, constraints) {
+      double deviceWidth = constraints.maxWidth;
+      double deviceHeight = constraints.maxHeight;
 
-    return Container(
-      // Chorizo de sumas que permiten en horizontal y vertical , y con varias cards u
-      //una unica card que ocupe t0d0 el espacio
-      width: (MediaQuery.of(context).orientation == Orientation.portrait)
-          ? (widthScreenFactor == 1)
-              ? ((deviceWidth / widthScreenFactor) -
-                  (widthScreenFactor * _cardSidesPadding * 4))
-              : ((deviceWidth / widthScreenFactor) -
-                  (widthScreenFactor * _cardSidesPadding))
-          : (widthLandscapeScreenFactor == 1)
-              ? ((deviceWidth / widthLandscapeScreenFactor) -
-                  (widthLandscapeScreenFactor * _cardSidesPadding * 4))
-              : ((deviceWidth / widthLandscapeScreenFactor) -
-                  (widthLandscapeScreenFactor * _cardSidesPadding)),
-      height: height,
-      child: Card(
-        child: Padding(
-          padding:
-              EdgeInsets.fromLTRB(_cardSidesPadding, 12, _cardSidesPadding, 6),
+
+      // UNUSED _ ESTABA PROBANDO PERO CREO QUE SE PUEDE MEJORAR, PERO NECESITO SABER CUANTAS CARDS HAY Y VER SI ME DA EL TAMAÑO PARA DIVIDIR HASTA LLEGAR A LAS N CARDS
+      // ej CADA CARD ES DE 200 PX , SI TENGO 800 PX DE PANTALLA Y 4 CARDS , ENTONCES LA DIVIDO EN 4
+      // SI TENGO 3 CARDS DIVIDO 800 EN 3 , Y SI TENGO 5 , COMO YA ME QUEDAN MUY PEQUEÑOS ( MENOS DEL MINIMO DE 200 )
+      // ENTONCES LA DIVIDO EN 3 Y DEJO QUE EL WRAP HAGA LO SUYO
+
+
+      // var _widthScreenFactor = widthScreenFactor;
+      // var _widthLandscapeScreenFactor = widthLandscapeScreenFactor;
+      //
+      //
+      // if (constraints.maxWidth > 800 &&
+      //     widthLandscapeScreenFactor != 1 &&
+      //     widthScreenFactor != 1) {
+      //   _widthLandscapeScreenFactor++;
+      //   _widthScreenFactor++;
+      // }if (constraints.maxWidth < 800 &&
+      //     widthLandscapeScreenFactor != 1 &&
+      //     widthScreenFactor != 1) {
+      //   _widthLandscapeScreenFactor++;
+      //   _widthScreenFactor++;
+      // }
+      return Container(
+        width: (MediaQuery.of(context).orientation == Orientation.portrait)
+            ? (deviceWidth / widthScreenFactor)
+            : (deviceWidth / widthLandscapeScreenFactor),
+        height: height,
+        child: Card(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -52,7 +62,8 @@ class DashboardCard extends StatelessWidget {
                   padding: const EdgeInsets.all(6.0),
                   child: Text(
                     "Sensor $title",
-                    style: Theme.of(context).textTheme.headline6 , textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.headline6,
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ),
@@ -64,7 +75,7 @@ class DashboardCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
+      );
+    } );
   }
 }
