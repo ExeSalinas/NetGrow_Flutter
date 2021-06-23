@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:netgrow/Widgets/Sensors_widgets/card.dart';
 
 class SoilWidget extends StatefulWidget {
   final nombre;
@@ -42,58 +43,28 @@ class _SoilWidgetState extends State<SoilWidget> {
     double deviceWidth = MediaQuery.of(context).size.width;
     double deviceHeight = MediaQuery.of(context).size.height;
 
-    var card = Card(
-      child: Padding(
-        padding: _cardPadding,
-        child: Column(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Center(
-                child: Text(
-                  "Humedad Suelo ${widget.nombre} ",
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: _paddingContent,
-                      child: Text(
-                        "$hum",
-                        overflow: TextOverflow.visible,
-                        style: Theme.of(context).textTheme.headline4,
-                      ),
-                    ),
-                    Flexible(
-                      fit: FlexFit.loose,
-                      flex: 4,
-                      child: Padding(
-                        padding: _paddingContent,
-                        child: Image.asset(
-                            r'assets\Imagenes\Sensores\HumSuelo\soil.png'),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )
-          ],
+    var card = Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: _paddingContent,
+          child: Text(
+            "$hum",
+            overflow: TextOverflow.visible,
+            style: Theme.of(context).textTheme.headline4,
+          ),
         ),
-      ),
+        Flexible(
+          fit: FlexFit.loose,
+          flex: 1,
+          child: Padding(
+            padding: _paddingContent,
+            child: Image.asset(
+                r'assets\Imagenes\Sensores\HumSuelo\soil.png'),
+          ),
+        ),
+      ],
     );
-    return Container(
-      width: (MediaQuery.of(context).orientation == Orientation.portrait)
-          ? ((deviceWidth / widget.widthScreenFactor) - (_cardSidesPadding * 2))
-          : ((deviceWidth / widget.widthLandscapeScreenFactor) -
-              (_cardSidesPadding * 2)),
-      height: 150,
-      child: card,
-    );
+    return DashboardCard(title: "Humedad Suelo ${widget.nombre}" ,  child: card);
   }
 }
